@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Antilatency/OculusSample/Samples/AltOculusSample.unity
+    guid: e0b0ffc8dc600294e98a8f4074769d81
+  m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: eb4f7f5d27635b845b125e75b1ac18d4,
+      type: 2}
+    com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 474701e2997e3fe458bef72435e6d48e,
+      type: 2}
