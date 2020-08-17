@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Antilatency/OculusSample/Samples/AltOculusSample.unity
+    path: Assets/Antilatency/OculusSample/Scenes/AltOculusSample.unity
     guid: e0b0ffc8dc600294e98a8f4074769d81
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: eb4f7f5d27635b845b125e75b1ac18d4,

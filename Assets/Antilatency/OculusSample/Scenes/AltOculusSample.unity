@@ -823,7 +823,7 @@ GameObject:
   - component: {fileID: 756731709}
   - component: {fileID: 756731708}
   m_Layer: 0
-  m_Name: AltEnvironment
+  m_Name: AltOculusRig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
