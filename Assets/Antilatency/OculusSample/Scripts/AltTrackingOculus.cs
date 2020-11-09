@@ -72,6 +72,42 @@ namespace Antilatency.OculusSample {
             _rig.UpdatedAnchors -= OnUpdatedAnchors;
         }
 
+        protected virtual void OnFocusChanged(bool focus) {
+            if (focus) {
+                StartTrackingAlignment();
+            } else {
+                StopTrackingAlignment();
+            }
+        }
+
+        private void OnApplicationFocus(bool focus) {
+            OnFocusChanged(focus);
+        }
+
+        private void OnApplicationPause(bool pause) {
+            OnFocusChanged(!pause);
+        }
+
+        private void StartTrackingAlignment() {
+            if (_alignment != null) {
+                StopTrackingAlignment();
+            }
+
+            var placement = GetPlacement();
+            _alignment = _alignmentLibrary.createTrackingAlignment(Antilatency.Math.doubleQ.FromQuaternion(placement.rotation), ExtrapolationTime);
+
+            _altInitialPositionApplied = false;
+        }
+
+        private void StopTrackingAlignment() {
+            if (_alignment == null) {
+                return;
+            }
+
+            _alignment.Dispose();
+            _alignment = null;
+        }
+
         protected override void Awake() {
             base.Awake();
 
@@ -108,7 +144,7 @@ namespace Antilatency.OculusSample {
             var altTrackingActive = GetRawTrackingState(out trackingState);
 
             // Correct Oculus rotation if we have good quality tracking data from Alt.
-            if (altTrackingActive && trackingState.stability.stage == Antilatency.Alt.Tracking.Stage.Tracking6Dof && trackingState.stability.value > 0.075f) {
+            if (altTrackingActive && (_alignment != null) && trackingState.stability.stage == Antilatency.Alt.Tracking.Stage.Tracking6Dof && trackingState.stability.value > 0.075f) {
                 var result = _alignment.update(
                     Antilatency.Math.doubleQ.FromQuaternion(trackingState.pose.rotation),
                     Antilatency.Math.doubleQ.FromQuaternion(rig.centerEyeAnchor.localRotation),
@@ -130,15 +166,14 @@ namespace Antilatency.OculusSample {
             // Correct Oculus position.
             if (OVRManager.instance.usePositionTracking) {
                 if (trackingState.stability.stage == Antilatency.Alt.Tracking.Stage.Tracking6Dof) {
-                    var aWorldSpace = rig.transform.TransformPoint(trackingState.pose.position);
-                    var a = rig.transform.InverseTransformPoint(aWorldSpace);
+                    var a = trackingState.pose.position;
                     var bSpace = rig.trackingSpace.localPosition;
                     var b = rig.transform.InverseTransformPoint(rig.centerEyeAnchor.position);
 
                     Vector3 averagePositionInASpace;
 
                     if (!_altInitialPositionApplied) {
-                        averagePositionInASpace = (b * 0.0f + a * 100.0f) / (100.0f + 0.0f);
+                        averagePositionInASpace = a;
                         _altInitialPositionApplied = true;
                     } else {
                         averagePositionInASpace = (b * _bQuality + a * trackingState.stability.value) / (trackingState.stability.value + _bQuality);
