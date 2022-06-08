@@ -1,17 +1,16 @@
-# Antilatency Alt Tracking for Oculus HMD sample project
+[![Antilatency SDK - 3.5.2](https://img.shields.io/badge/Antilatency_SDK-3.5.2-acc435?style=for-the-badge)](https://)
 
-## Intro
+[![Unity - 2021.3.3f1](https://img.shields.io/badge/Unity-2021.3.3f1-787777?style=for-the-badge&logo=unity)](https://)
 
-This project includes sample implementation of Antilatency Tracking system usage with Oculus HMD's.
+## Summary
 
-The main sample scene named AltOculusSample.unity is located at Assets/Antilatency/OculusSample/Scenes.
+This project includes example implementation of Oculus headset tracking with Antilatency tracking system, [Tracking Alignment library](https://developers.antilatency.com/Software/Libraries/Antilatency_Tracking_Alignment_Library_en.html) and Oculus SDK. 
 
-Check the AltTrackingOculus.cs component located at Assets/Antilatency/OculusSample/Scripts to see how you can use Antilatency Tracking and Oculus tracking systems at the same time.
+It should work with Oculus Rift S, Oculus Quest or Quest 2 headsets. Extensively tested with Quest 2.
 
-## SDK version
-This project is based on Antilatency SDK 3.3.0 release
-
-## Requirements
-
-* Unity 2019.4.28f1
-* Oculus Rift S, Oculus Quest or Quest 2 headsets
+    .
+    └── Assets
+        └── Antilatency
+            └── OculusSample
+                ├── Scenes        # Contains example scene AltOculusSample.unity
+                └── Scripts       # Contains example script AltTrackingOculus.cs
